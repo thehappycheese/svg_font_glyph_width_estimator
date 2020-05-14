@@ -1,0 +1,51 @@
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Nick's Amazing SVG Font Glyph Width Estimator</title>
+		<script src=main.js defer></script>
+	</head>
+	<body>
+		<!-- This SVG element will be deleted after profilling si completed-->
+		<svg
+		xmlns="http://www.w3.org/2000/svg"
+		xmlns:ev="http://www.w3.org/2001/xml-events"
+		xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+		xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+		xmlns:xlink="http://www.w3.org/1999/xlink"
+		baseProfile="full"
+		width="1200px"
+		height="600px"
+		version="1.1"
+		viewBox="0 0 1200 600">
+			<text x=50 y=200 id="letext" style="font-family:'Arial Narrow',sans-serif;font-size:4px;">
+				<tspan id="lespan"></tspan>
+			</text>
+		</svg>
+		<h1>Nick's Amazing SVG Font-Width / Glyph-Width Estimator with JSON Output</h1>
+		<p>Uses an SVG element and the browser's .getBoundingClientRect() function to estimate the width of common glyphs and output a nice copy-pastable JSON snippet.</p>
+		<p>Note that coputations are done at size '15' in the svg user coordinates and then, <b>the results are divided by the font size.</b></p>
+		<p>The svg user corrdinate space is set to match the screen pixel space (ie svg width/height attributes == viewbox attribute), so the results are unitless</p>
+		<p>If you paste the results below into some python module (i suggest <i>font_profiles.py</i>) then the following snippet will estimate the width of a given string</p>
+		<code style="color:darkblue; font-weight: bold;">
+<pre>from . import font_profiles
+def width_estimate(line_of_text, font_family, font_size):
+	linewidth = 0
+	for char in line:
+		if char in font_profiles[font_family]:
+			linewidth += font_profiles[font_family][char]["width"]
+		else:
+			linewidth += font_profiles[font_family]["_"]
+	return linewidth
+
+print(width_estimate("lorem ipsum", "arial", 12))</pre>
+		</code>
+		<h2>Note</h2>
+		<ul>
+			<li>To output different fonts you need to edit the source code, main.js</li>
+			<li>The browser must have access to the system font specified or it will substitute for some default font and you will never know</li>
+			<li>Probably there are a million edge cases that prevent this approach from working including kerning built into the font etc.</li>
+		</ul>
+		<h2>Output:</h2>
+		<textarea id="textout" style="display:block;width:90%;height:250px;"></textarea>
+	</body>
+</html>
