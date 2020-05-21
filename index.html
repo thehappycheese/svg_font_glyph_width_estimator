@@ -23,8 +23,8 @@
 		</svg>
 		<h1>Nick's Amazing SVG Font-Width / Glyph-Width Estimator with JSON Output</h1>
 		<p>Uses an SVG element and the browser's .getBoundingClientRect() function to estimate the width of common glyphs and output a nice copy-pastable JSON snippet.</p>
-		<p>Note that coputations are done at size '15' in the svg user coordinates and then, <b>the results are divided by the font size.</b></p>
-		<p>The svg user corrdinate space is set to match the screen pixel space (ie svg width/height attributes == viewbox attribute), so the results are unitless</p>
+		<p>Note that computations are done at size '15' in the svg user coordinates and then, <b>the results are divided by the font size.</b></p>
+		<p>The svg user coordinate space is set to match the screen pixel space (ie svg width/height attributes == viewbox attribute), so the results are unit-less</p>
 		<p>If you paste the results below into some python module (i suggest <i>font_profiles.py</i>) then the following snippet will estimate the width of a given string</p>
 		<code style="color:darkblue; font-weight: bold;">
 <pre>from . import font_profiles
