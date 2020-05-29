@@ -22,22 +22,23 @@
 			</text>
 		</svg>
 		<h1>Nick's Amazing SVG Font-Width / Glyph-Width Estimator with JSON Output</h1>
-		<p>Uses an SVG element and the browser's .getBoundingClientRect() function to estimate the width of common glyphs and output a nice copy-pastable JSON snippet.</p>
-		<p>Note that computations are done at size '15' in the svg user coordinates and then, <b>the results are divided by the font size.</b></p>
-		<p>The svg user coordinate space is set to match the screen pixel space (ie svg width/height attributes == viewbox attribute), so the results are unit-less</p>
-		<p>If you paste the results below into some python module (i suggest <i>font_profiles.py</i>) then the following snippet will estimate the width of a given string</p>
+		<p>Uses the browser's .getBoundingClientRect() function on an SVG &lt;text&gt; element to estimate the width of common glyphs and output a nice copy-pastable JSON snippet.</p>
+		<p>Note that computations are done at font-size=15 in the svg user coordinates and then, <b>the results are divided by the font size.</b><br>
+		(Also the svg user coordinate space is set to match the screen pixel space; that is svg width/height attributes == viewbox attribute).<br>Therefore the results are unit-less</p>
+		<p>If you paste the results below into some python module (I suggest <i>font_profiles.py</i>) then the following snippet will estimate the width of a given string</p>
 		<code style="color:darkblue; font-weight: bold;">
 <pre>from . import font_profiles
-def width_estimate(line_of_text, font_family, font_size):
-	linewidth = 0
-	for char in line:
-		if char in font_profiles[font_family]:
-			linewidth += font_profiles[font_family][char]["width"]
-		else:
-			linewidth += font_profiles[font_family]["_"]
-	return linewidth
 
-print(width_estimate("lorem ipsum", "arial", 12))</pre>
+def width_estimate(line_of_text: str, font_size: float) -> float:
+	linewidth = 0
+	for char in line_of_text:
+		if char in font_profiles.arial:
+			linewidth += font_profiles.arial[char]["width"]
+		else:
+			linewidth += font_profiles.arial["_"]
+	return linewidth * font_size
+
+print(f"Width of 'lorem ipsum' in arial size 12px = {width_estimate('lorem ipsum', 12)}")</pre>
 		</code>
 		<h2>Note</h2>
 		<ul>
